@@ -1,0 +1,136 @@
+Usuario:{
+  Username
+  Nombre
+  Apellidos
+  EmailPaypal?
+  nombreEmpresa?
+  Email
+  BirthDate
+  Follows
+  imagen?
+}
+
+Post: {
+ Autor -> Usuario
+ titulo
+ imagen?
+ descripcion
+ fechaCreacion
+ fechaModificacion
+ idioma
+ Comentario->usuario
+ totalComentarios
+ fuente
+}
+comentario{
+usuario_id ->usuario
+comentario
+nLikes
+nReportes
+
+}
+itemList:{//ejemplo
+//https://listas.20minutos.es/lista/mi-top-10-peliculas-vistas-en-el-cine-del-2017-426896/
+  Autor -> Usuario
+  Nombre
+  descripcion
+  imagen?
+  fechaCreacion
+  fechaModificacion
+  items -> item[];
+  Comentario->usuario
+  totalComentarios
+  count
+}
+item:{
+  lista_id -> itemList:id
+  titulo
+  imagen/video
+  descripcion
+  puntuacion
+}
+
+testList{//ejemplo
+//https://www.enfemenino.com/tests/test-cual-es-tu-flor-en-funcion-de-tu-personalidad-s2097069.html#d25230121-p4
+  Autor -> Usuario
+  Nombre
+  descripcion
+  imagen?
+  fechaCreacion
+  fechaModificacion
+  tests -> test[];
+  Comentario->usuario
+  totalComentarios
+  count
+}
+test:{
+  lista_id -> testList:id
+  descripcion
+  imagen?
+  opcionTestList/*{
+  ésto recibe por el id de test
+  a->contenido de la opcion A
+  b->Contenido de la opcion B
+  c->Contenido de la opcion C
+  }*/
+  respuesta/* c */
+  //numero de test maximo: 6
+}
+opcionesTest{
+test_id ->test
+opcion //puede ser a,b,c,d,e,f,g,etc
+contenido
+}
+encuesta:{
+  Autor -> Usuario
+  fechaCreacion
+  fechaModificacion
+  nombre
+  descripcion
+  imagen?
+  opcionEncuestaList
+  total //calcular el porcentaje con el total
+}
+opcionesEncuesta{
+  encuestaid -> encuesta
+  titulo
+  votos //numero de votos
+}
+
+//muro privado (copia barata de thiscrush)
+muroPrivado:{//ejemplo
+//http://www.thiscrush.com/~martusky
+Nombre
+imagen
+comentarios -> comentariosMuroPrivado
+redesSociales->
+nLikespg
+ncompartidopg
+
+}
+comentariosMuroPrivado{
+  idMuroPrivado -> muroPrivado_id
+  nombre //nombre del usuario no registrado
+  comentario
+  nLikes
+  nCompartido
+  nReportes
+}
+redesSociales{
+usuario_id->usuario
+redSocial
+}
+
+Evento{
+  usuario_id
+  Nombre
+  descripcion
+  imagen
+  url?
+  precio //por defecto Gratis
+  lugar
+  fechaCreacion
+  fechaModificacion
+  fechaFinalizacion
+  comentarios
+}
